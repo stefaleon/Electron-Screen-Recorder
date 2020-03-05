@@ -1,4 +1,6 @@
-const { desktopCapturer } = require('electron');
+const { desktopCapturer, remote } = require('electron');
+
+const { Menu } = remote;
 
 const videoElement = document.querySelector('video');
 const startBtn = document.getElementById('startBtn');

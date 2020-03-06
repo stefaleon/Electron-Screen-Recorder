@@ -15,13 +15,19 @@ startBtn.onclick = e => {
     startBtn.classList.add('is-danger');
     startBtn.innerText = 'Recording';
   } else {
-    console.log('%cVIDEO SOURCE HAS NOT BEEN SELECTED YET', 'COLOR:RED');
+    console.log('%cVIDEO SOURCE HAS NOT BEEN SELECTED YET', 'color: red');
   }
 };
 stopBtn.onclick = e => {
-  mediaRecorder.stop();
-  startBtn.classList.remove('is-danger');
-  startBtn.innerText = 'Start';
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    mediaRecorder.stop();
+    startBtn.classList.remove('is-danger');
+    startBtn.innerText = 'Start';
+  } else if (mediaRecorder && mediaRecorder.state === 'inactive') {
+    console.log('%cmediaRecorder IS INACTIVE', 'color: red');
+  } else {
+    console.log('%cmediaRecorder HAS NOT STARTED', 'color: red');
+  }
 };
 
 async function getVideoSources() {

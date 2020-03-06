@@ -40,4 +40,6 @@ async function selectSource(source) {
       }
     }
   };
+
+  const stream = await navigator.mediaDevices.getUserMedia(constraints);
 }

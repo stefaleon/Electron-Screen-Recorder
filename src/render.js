@@ -1,3 +1,4 @@
+const { writeFile } = require('fs');
 const { desktopCapturer, remote } = require('electron');
 
 const { Menu, dialog } = remote;
@@ -82,8 +83,13 @@ async function handleStop(e) {
 
   const buffer = Buffer.from(await blob.arrayBuffer());
 
-  const { filepath } = await dialog.showSaveDialog({
+  const { filePath } = await dialog.showSaveDialog({
     buttonLabel: 'Save video',
     defaultPath: `cap-${Date.now()}.webm`
   });
+
+  // console.log(filePath);
+  if (filePath) {
+    writeFile(filePath, buffer, () => console.log('video saved successfully!'));
+  }
 }

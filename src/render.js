@@ -17,6 +17,11 @@ startBtn.onclick = e => {
     console.log('%cVIDEO SOURCE HAS NOT BEEN SELECTED YET', 'COLOR:RED');
   }
 };
+stopBtn.onclick = e => {
+  mediaRecorder.stop();
+  startBtn.classList.remove('is-danger');
+  startBtn.innerText = 'Start';
+};
 
 async function getVideoSources() {
   const inputSources = await desktopCapturer.getSources({
@@ -68,4 +73,12 @@ async function selectSource(source) {
 function handleAvailableData(e) {
   console.log('video data available');
   recordedChunks.push(e.data);
+}
+
+async function handleStop(e) {
+  const blob = new Blob(recordedChunks, {
+    type: 'video/webm; codecs=vp9'
+  });
+
+  const buffer = Buffer.from(await blob.arrayBuffer());
 }

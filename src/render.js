@@ -1,6 +1,6 @@
 const { desktopCapturer, remote } = require('electron');
 
-const { Menu } = remote;
+const { Menu, dialog } = remote;
 
 const videoElement = document.querySelector('video');
 const startBtn = document.getElementById('startBtn');
@@ -81,4 +81,9 @@ async function handleStop(e) {
   });
 
   const buffer = Buffer.from(await blob.arrayBuffer());
+
+  const { filepath } = await dialog.showSaveDialog({
+    buttonLabel: 'Save video',
+    defaultPath: `cap-${Date.now()}.webm`
+  });
 }

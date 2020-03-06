@@ -8,6 +8,15 @@ const stopBtn = document.getElementById('stopBtn');
 const videoSelectBtn = document.getElementById('videoSelectBtn');
 
 videoSelectBtn.onclick = getVideoSources;
+startBtn.onclick = e => {
+  if (mediaRecorder) {
+    mediaRecorder.start();
+    startBtn.classList.add('is-danger');
+    startBtn.innerText = 'Recording';
+  } else {
+    console.log('%cVIDEO SOURCE HAS NOT BEEN SELECTED YET', 'COLOR:RED');
+  }
+};
 
 async function getVideoSources() {
   const inputSources = await desktopCapturer.getSources({
@@ -54,4 +63,9 @@ async function selectSource(source) {
 
   mediaRecorder.ondataavailable = handleAvailableData;
   mediaRecorder.onstop = handleStop;
+}
+
+function handleAvailableData(e) {
+  console.log('video data available');
+  recordedChunks.push(e.data);
 }

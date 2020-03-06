@@ -51,4 +51,7 @@ async function selectSource(source) {
 
   const options = { mimeType: 'video/webm; codecs=vp9' };
   mediaRecorder = new MediaRecorder(stream, options);
+
+  mediaRecorder.ondataavailable = handleAvailableData;
+  mediaRecorder.onstop = handleStop;
 }

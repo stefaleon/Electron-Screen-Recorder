@@ -25,3 +25,19 @@ async function getVideoSources() {
 
   videoOptionsMenu.popup();
 }
+
+async function selectSource(source) {
+  // console.log(source);
+
+  videoSelectBtn.innerText = source.name;
+
+  const constraints = {
+    audio: false,
+    video: {
+      mandatory: {
+        chromeMediaSource: 'desktop',
+        chromeMediaSourceId: source.id
+      }
+    }
+  };
+}

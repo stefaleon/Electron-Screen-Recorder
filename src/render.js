@@ -26,6 +26,9 @@ async function getVideoSources() {
   videoOptionsMenu.popup();
 }
 
+let mediaRecorder; // MediaRecorder instance to capture footage
+const recordedChunks = [];
+
 async function selectSource(source) {
   // console.log(source);
 
@@ -45,4 +48,7 @@ async function selectSource(source) {
 
   videoElement.srcObject = stream;
   videoElement.play();
+
+  const options = { mimeType: 'video/webm; codecs=vp9' };
+  mediaRecorder = new MediaRecorder(stream, options);
 }
